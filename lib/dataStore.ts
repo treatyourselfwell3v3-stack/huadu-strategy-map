@@ -1,5 +1,4 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import usersData from '../data/users.json';
 
 export type UserProfile = {
   id: string;
@@ -12,39 +11,63 @@ type UserData = {
   users: UserProfile[];
 };
 
-const filePath = path.join(process.cwd(), 'data', 'users.json');
+const STORAGE_KEY = 'skill_swap_users';
 
-async function readData(): Promise<UserData> {
-  const raw = await fs.readFile(filePath, 'utf-8');
-  return JSON.parse(raw) as UserData;
+function cloneSeedUsers(): UserProfile[] {
+  return usersData.users.map((u) => ({ ...u, have: [...u.have], want: [...u.want] }));
 }
 
-async function writeData(data: UserData): Promise<void> {
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+function getSeedData(): UserData {
+  return { users: cloneSeedUsers() };
 }
 
-export async function getUsers(): Promise<UserProfile[]> {
-  const data = await readData();
-  return data.users;
+function canUseStorage(): boolean {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
 }
 
-export async function addUser(user: Omit<UserProfile, 'id'>): Promise<UserProfile> {
-  const data = await readData();
+export function getUsers(): UserProfile[] {
+  if (!canUseStorage()) return cloneSeedUsers();
+
+  const raw = window.localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    const seed = getSeedData();
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+    return seed.users;
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as UserData;
+    if (!Array.isArray(parsed.users)) throw new Error('Invalid user data');
+    return parsed.users;
+  } catch {
+    const seed = getSeedData();
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+    return seed.users;
+  }
+}
+
+function saveUsers(users: UserProfile[]): void {
+  if (!canUseStorage()) return;
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ users }));
+}
+
+export function addUser(user: Omit<UserProfile, 'id'>): UserProfile {
+  const users = getUsers();
   const newUser: UserProfile = {
     id: `u${Date.now()}`,
-    name: user.name,
-    have: Array.from(new Set(user.have)),
-    want: Array.from(new Set(user.want))
+    name: user.name.trim(),
+    have: Array.from(new Set(user.have.map((s) => s.trim()).filter(Boolean))),
+    want: Array.from(new Set(user.want.map((s) => s.trim()).filter(Boolean)))
   };
 
-  data.users.push(newUser);
-  await writeData(data);
+  const next = [...users, newUser];
+  saveUsers(next);
   return newUser;
 }
 
-export async function addSkill(userId: string, type: 'have' | 'want', skill: string): Promise<UserProfile | null> {
-  const data = await readData();
-  const user = data.users.find((u) => u.id === userId);
+export function addSkill(userId: string, type: 'have' | 'want', skill: string): UserProfile | null {
+  const users = getUsers();
+  const user = users.find((u) => u.id === userId);
   if (!user) return null;
 
   const normalized = skill.trim();
@@ -54,6 +77,6 @@ export async function addSkill(userId: string, type: 'have' | 'want', skill: str
     user[type].push(normalized);
   }
 
-  await writeData(data);
+  saveUsers(users);
   return user;
 }

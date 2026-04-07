@@ -1,21 +1,23 @@
-# Skill Swap Platform (huadu-strategy-map)
+# Skill Swap Platform (Preview-ready MVP)
 
-A local-first MVP built with **Next.js + React + TypeScript + D3**.
+A **previewable** local-first Skill Swap platform built with:
+- Next.js (App Router)
+- React + TypeScript
+- D3.js
 
-Users can:
-- create a profile
-- publish skills they HAVE and WANT
-- get automatic reciprocal matches
-- view an interactive skill network graph
+## What you can do
 
-## Run
+1. Create profile
+2. Publish skills you HAVE and WANT
+3. Auto-generate reciprocal matches
+4. Visualize skill network graph (users + skills)
 
-```bash
-npm install
-npm run dev
-```
+## Routes
 
-Open `http://localhost:3000`.
+- `/` Home
+- `/publish` Create profile + publish skills
+- `/matches` View auto matches
+- `/graph` Skill network graph
 
 ## Project Structure
 
@@ -40,35 +42,33 @@ data
  └ users.json
 ```
 
-## Data Model
+## Storage model
 
-`data/users.json`
+- Seed data: `data/users.json`
+- Runtime persistence: browser `localStorage` (`skill_swap_users`)
+- No backend required for preview MVP
 
-- `id`: user id
-- `name`: display name
-- `have`: skill array the user can teach
-- `want`: skill array the user wants to learn
+## Run
 
-## Matching Logic
+```bash
+npm install
+npm run dev
+```
 
-In `lib/matchEngine.ts`:
+Open: `http://localhost:3000`
 
-A matches B if:
-- A has a skill B wants
-- B has a skill A wants
+## Graph features
 
-Returns reciprocal exchange pairs for display on `/matches`.
+- D3 force simulation
+- Zoom / Pan
+- Drag nodes
+- Hover highlight
+- Tooltip
+- Search filter (user or skill)
 
-## Skill Graph
+## Future roadmap
 
-`/graph` renders a D3 force graph:
-- node types: user, skill
-- edges: `HAVE`, `WANT`
-- supports zoom, pan, drag, hover highlight, tooltip
-
-## Future Roadmap
-
-- multi-hop exchange suggestions (A → B → C)
-- trust score / reputation
-- in-app chat and scheduling
-- backend persistence (DB + API)
+- Multi-hop exchange (A → B → C)
+- Skill-level verification
+- Message + scheduling
+- Backend API + database

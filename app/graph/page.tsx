@@ -1,9 +1,16 @@
-import Link from 'next/link';
-import SkillGraph from '../../components/SkillGraph';
-import { getUsers } from '../../lib/dataStore';
+'use client';
 
-export default async function GraphPage() {
-  const users = await getUsers();
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import SkillGraph from '../../components/SkillGraph';
+import { getUsers, type UserProfile } from '../../lib/dataStore';
+
+export default function GraphPage() {
+  const [users, setUsers] = useState<UserProfile[]>([]);
+
+  useEffect(() => {
+    setUsers(getUsers());
+  }, []);
 
   return (
     <main>

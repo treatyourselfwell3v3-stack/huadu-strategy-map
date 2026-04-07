@@ -1,9 +1,16 @@
-import Link from 'next/link';
-import { getUsers } from '../lib/dataStore';
-import UserCard from '../components/UserCard';
+'use client';
 
-export default async function HomePage() {
-  const users = await getUsers();
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import UserCard from '../components/UserCard';
+import { getUsers, type UserProfile } from '../lib/dataStore';
+
+export default function HomePage() {
+  const [users, setUsers] = useState<UserProfile[]>([]);
+
+  useEffect(() => {
+    setUsers(getUsers());
+  }, []);
 
   return (
     <main>
@@ -23,7 +30,7 @@ export default async function HomePage() {
           </Link>
         </nav>
 
-        <h2>Community Members</h2>
+        <h2>Community Members ({users.length})</h2>
         <div className="grid">
           {users.map((user) => (
             <UserCard key={user.id} user={user} />

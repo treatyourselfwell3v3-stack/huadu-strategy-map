@@ -1,31 +1,38 @@
+'use client';
+
 import Link from 'next/link';
-import { revalidatePath } from 'next/cache';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 import { addUser } from '../../lib/dataStore';
 
 export default function PublishPage() {
-  async function publishSkill(formData: FormData) {
-    'use server';
+  const router = useRouter();
+  const [name, setName] = useState('');
+  const [have, setHave] = useState('');
+  const [want, setWant] = useState('');
 
-    const name = String(formData.get('name') ?? '').trim();
-    const haveRaw = String(formData.get('have') ?? '');
-    const wantRaw = String(formData.get('want') ?? '');
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    if (!name) return;
-
-    const have = haveRaw
+    const parsedHave = have
       .split(',')
       .map((s) => s.trim())
       .filter(Boolean);
 
-    const want = wantRaw
+    const parsedWant = want
       .split(',')
       .map((s) => s.trim())
       .filter(Boolean);
 
-    await addUser({ name, have, want });
-    revalidatePath('/');
-    revalidatePath('/matches');
-    revalidatePath('/graph');
+    if (!name.trim() || !parsedHave.length || !parsedWant.length) return;
+
+    addUser({
+      name: name.trim(),
+      have: parsedHave,
+      want: parsedWant
+    });
+
+    router.push('/matches');
   }
 
   return (
@@ -34,20 +41,34 @@ export default function PublishPage() {
         <h1 className="title">Publish Skills</h1>
         <p className="subtitle">Add your profile and exchange preferences.</p>
 
-        <form action={publishSkill} className="form">
+        <form onSubmit={handleSubmit} className="form">
           <label>
             Name
-            <input name="name" className="input" required />
+            <input value={name} onChange={(e) => setName(e.target.value)} className="input" required />
           </label>
 
           <label>
             Skills I Have (comma separated)
-            <textarea name="have" className="input" rows={3} placeholder="Python, UI Design" required />
+            <textarea
+              value={have}
+              onChange={(e) => setHave(e.target.value)}
+              className="input"
+              rows={3}
+              placeholder="Python, UI Design"
+              required
+            />
           </label>
 
           <label>
             Skills I Want (comma separated)
-            <textarea name="want" className="input" rows={3} placeholder="Video Editing, English" required />
+            <textarea
+              value={want}
+              onChange={(e) => setWant(e.target.value)}
+              className="input"
+              rows={3}
+              placeholder="Video Editing, English"
+              required
+            />
           </label>
 
           <button type="submit" className="btn-primary">
