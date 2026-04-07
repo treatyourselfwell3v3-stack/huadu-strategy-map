@@ -1,4 +1,4 @@
-const { skillPosts } = require('../../utils/mock');
+const { getPosts } = require('../../utils/storage');
 
 Page({
   data: {
@@ -6,8 +6,19 @@ Page({
   },
 
   onLoad() {
-    this.setData({
-      posts: skillPosts
-    });
+    this.loadPosts();
+  },
+
+  onShow() {
+    this.loadPosts();
+  },
+
+  onPullDownRefresh() {
+    this.loadPosts();
+    wx.stopPullDownRefresh();
+  },
+
+  loadPosts() {
+    this.setData({ posts: getPosts() });
   }
 });

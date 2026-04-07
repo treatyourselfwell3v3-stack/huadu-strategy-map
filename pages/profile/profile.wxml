@@ -2,6 +2,7 @@
   <view class="card">
     <view style="font-size:34rpx;font-weight:700;">{{user.nickname}}</view>
     <view style="margin-top:8rpx;color:#5c6b7a;">{{user.city}} · 信用分 {{user.credits}}</view>
+    <view style="margin-top:8rpx;color:#4a90e2;">累计交换信息 {{stats.totalPosts}} 条</view>
   </view>
 
   <view class="card">

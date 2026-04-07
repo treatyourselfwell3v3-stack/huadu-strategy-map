@@ -14,5 +14,6 @@ node --check pages/publish/publish.js
 node --check pages/match/match.js
 node --check pages/profile/profile.js
 node --check utils/mock.js
+node --check utils/storage.js
 
 echo "Smoke checks passed."
