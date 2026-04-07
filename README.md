@@ -79,3 +79,12 @@ Then open: `http://localhost:3000`
 npm run build
 npm run start
 ```
+
+
+## NPM Registry
+
+If your environment uses a custom mirror, reset to npmjs:
+
+```bash
+npm config set registry https://registry.npmjs.org/
+```
