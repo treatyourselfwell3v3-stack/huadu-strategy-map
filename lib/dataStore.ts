@@ -25,13 +25,18 @@ function canUseStorage(): boolean {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
 }
 
+function saveUsers(users: UserProfile[]): void {
+  if (!canUseStorage()) return;
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ users }));
+}
+
 export function getUsers(): UserProfile[] {
   if (!canUseStorage()) return cloneSeedUsers();
 
   const raw = window.localStorage.getItem(STORAGE_KEY);
   if (!raw) {
     const seed = getSeedData();
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+    saveUsers(seed.users);
     return seed.users;
   }
 
@@ -41,14 +46,15 @@ export function getUsers(): UserProfile[] {
     return parsed.users;
   } catch {
     const seed = getSeedData();
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+    saveUsers(seed.users);
     return seed.users;
   }
 }
 
-function saveUsers(users: UserProfile[]): void {
-  if (!canUseStorage()) return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ users }));
+export function resetUsers(): UserProfile[] {
+  const seed = cloneSeedUsers();
+  saveUsers(seed);
+  return seed;
 }
 
 export function addUser(user: Omit<UserProfile, 'id'>): UserProfile {

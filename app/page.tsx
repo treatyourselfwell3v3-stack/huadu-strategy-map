@@ -1,16 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import UserCard from '../components/UserCard';
-import { getUsers, type UserProfile } from '../lib/dataStore';
+import { getUsers, resetUsers, type UserProfile } from '../lib/dataStore';
 
 export default function HomePage() {
-  const [users, setUsers] = useState<UserProfile[]>([]);
+  const [users, setUsers] = useState<UserProfile[]>(() => getUsers());
+  const [keyword, setKeyword] = useState('');
 
-  useEffect(() => {
-    setUsers(getUsers());
-  }, []);
+  const visibleUsers = useMemo(() => {
+    const normalized = keyword.trim().toLowerCase();
+    if (!normalized) return users;
+
+    return users.filter((user) => {
+      const bag = [user.name, ...user.have, ...user.want].join(' ').toLowerCase();
+      return bag.includes(normalized);
+    });
+  }, [users, keyword]);
 
   return (
     <main>
@@ -28,11 +35,27 @@ export default function HomePage() {
           <Link href="/graph" className="btn-link">
             Skill Graph
           </Link>
+          <button type="button" className="btn-link btn-secondary" onClick={() => setUsers(getUsers())}>
+            Refresh
+          </button>
+          <button type="button" className="btn-link btn-secondary" onClick={() => setUsers(resetUsers())}>
+            Reset Seed Data
+          </button>
         </nav>
 
-        <h2>Community Members ({users.length})</h2>
+        <input
+          className="input"
+          placeholder="Search users or skills"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          style={{ marginBottom: 12 }}
+        />
+
+        <h2>
+          Community Members ({visibleUsers.length}/{users.length})
+        </h2>
         <div className="grid">
-          {users.map((user) => (
+          {visibleUsers.map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
         </div>

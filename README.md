@@ -11,6 +11,7 @@ A **previewable** local-first Skill Swap platform built with:
 2. Publish skills you HAVE and WANT
 3. Auto-generate reciprocal matches
 4. Visualize skill network graph (users + skills)
+5. Search/filter users and matches, reset seed data
 
 ## Routes
 
@@ -72,3 +73,9 @@ Open: `http://localhost:3000`
 - Skill-level verification
 - Message + scheduling
 - Backend API + database
+
+
+## Preview Helpers
+
+- Home page provides **Refresh** and **Reset Seed Data** buttons.
+- Matches page supports filtering by a specific skill keyword.

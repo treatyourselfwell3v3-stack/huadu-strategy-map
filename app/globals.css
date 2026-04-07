@@ -146,3 +146,11 @@ main {
   border-radius: 12px;
   background: #f8fafc;
 }
+
+.btn-secondary {
+  background: #64748b;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+}
