@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Alice",
+      "have": ["Photoshop", "Illustration"],
+      "want": ["Python", "AI Tools"]
+    },
+    {
+      "id": "u2",
+      "name": "Bob",
+      "have": ["Python", "Video Editing"],
+      "want": ["Photoshop", "English"]
+    },
+    {
+      "id": "u3",
+      "name": "Cindy",
+      "have": ["English", "UI Design"],
+      "want": ["Video Editing", "AI Tools"]
+    },
+    {
+      "id": "u4",
+      "name": "David",
+      "have": ["AI Tools", "Python"],
+      "want": ["UI Design", "Illustration"]
+    },
+    {
+      "id": "u5",
+      "name": "Eva",
+      "have": ["Video Editing", "Photoshop"],
+      "want": ["Python", "English"]
+    }
+  ]
+}
