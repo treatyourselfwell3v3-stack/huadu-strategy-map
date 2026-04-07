@@ -1,0 +1,15 @@
+<view style="padding: 24rpx;">
+  <view class="card">
+    <view style="font-size: 36rpx; font-weight: 700;">欢迎来到技能交换小程序</view>
+    <view style="color: #5c6b7a; margin-top: 12rpx;">用你擅长的技能，交换你想学的能力。</view>
+  </view>
+
+  <view wx:for="{{posts}}" wx:key="id" class="card">
+    <view style="display: flex; justify-content: space-between;">
+      <view style="font-weight: 700;">我可提供：{{item.offer}}</view>
+      <view style="color: #8e99a4;">{{item.location}}</view>
+    </view>
+    <view style="margin-top: 12rpx;">想交换：{{item.need}}</view>
+    <view style="margin-top: 12rpx; color: #4a90e2;">时间：{{item.time}}</view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+<view style="padding: 24rpx;">
+  <view class="card">
+    <view style="font-size: 32rpx; font-weight: 700; margin-bottom: 18rpx;">发布你的技能交换信息</view>
+    <input class="card" data-field="offer" value="{{form.offer}}" bindinput="onInput" placeholder="我可提供（如：日语N2备考）" />
+    <input class="card" data-field="need" value="{{form.need}}" bindinput="onInput" placeholder="我想学习（如：短视频运营）" />
+    <input class="card" data-field="time" value="{{form.time}}" bindinput="onInput" placeholder="可约时间" />
+    <input class="card" data-field="city" value="{{form.city}}" bindinput="onInput" placeholder="城市/区域" />
+    <button class="btn-primary" bindtap="onSubmit">立即发布</button>
+  </view>
+</view>

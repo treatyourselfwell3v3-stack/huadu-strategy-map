@@ -1,0 +1,30 @@
+page {
+  background: #f5f7fb;
+  color: #1f2d3d;
+  font-size: 28rpx;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 6rpx 18rpx rgba(74, 144, 226, 0.08);
+}
+
+.btn-primary {
+  background: #4a90e2;
+  color: #fff;
+  border-radius: 999rpx;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #4a90e2;
+  background: #eaf3ff;
+  border-radius: 12rpx;
+  padding: 8rpx 16rpx;
+  margin-right: 12rpx;
+  margin-top: 8rpx;
+}
