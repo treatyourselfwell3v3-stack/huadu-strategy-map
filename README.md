@@ -1,35 +1,81 @@
 # huadu-strategy-map
 
-## 技能交换小程序（示例）
+A runnable **Next.js + TypeScript + D3.js** web app that visualizes a strategy map as an interactive network graph.
 
-这是一个微信小程序原型，面向“技能交换”场景，支持：
+## Tech Stack
 
-- 首页浏览交换信息
-- 发布自己的技能交换需求
-- 根据关键词快速匹配
-- 个人中心查看资料与标签
+- Next.js (App Router)
+- React
+- TypeScript
+- D3.js
 
-## 目录结构
+## Project Structure
 
-- `app.js` / `app.json` / `app.wxss`：小程序全局配置
-- `pages/home`：首页信息流
-- `pages/publish`：发布页面
-- `pages/match`：匹配页（前端过滤演示）
-- `pages/profile`：个人中心
-- `utils/mock.js`：演示数据
+```text
+huadu-strategy-map
+│
+├ package.json
+├ next.config.js
+├ tsconfig.json
+├ next-env.d.ts
+│
+├ app
+│   ├ layout.tsx
+│   ├ page.tsx
+│   └ globals.css
+│
+├ components
+│   └ StrategyGraph.tsx
+│
+├ data
+│   └ strategy.json
+│
+└ README.md
+```
 
-## 运行方式
+## Data Format
 
-1. 使用微信开发者工具打开仓库目录。
-2. 选择“小程序”项目并导入。
-3. 预览四个 Tab 页面交互。
+`data/strategy.json`
 
-4. 运行快速检查：`bash scripts/smoke-check.sh`。
+```json
+{
+  "nodes": [
+    { "id": "AI" },
+    { "id": "Content" },
+    { "id": "Creator Economy" },
+    { "id": "Micro Business" },
+    { "id": "Knowledge Economy" }
+  ],
+  "links": [
+    { "source": "AI", "target": "Content" },
+    { "source": "Content", "target": "Creator Economy" },
+    { "source": "AI", "target": "Micro Business" },
+    { "source": "Knowledge Economy", "target": "Creator Economy" }
+  ]
+}
+```
 
-> 当前版本为前端原型演示，尚未接入后端接口与数据库。
+## Features
 
-## 本次优化
+- D3 force simulation
+- Zoom + pan
+- Draggable nodes
+- Node labels
+- Hover highlight (node + related links)
+- Tooltip on node hover
 
-- 发布的数据会写入本地缓存，首页/匹配页会自动读取最新数据。
-- 匹配页支持实时关键词过滤，并显示结果条数。
-- 个人中心增加“累计交换信息”统计。
+## Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open: `http://localhost:3000`
+
+## Build for Production
+
+```bash
+npm run build
+npm run start
+```

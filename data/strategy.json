@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    { "id": "AI" },
+    { "id": "Content" },
+    { "id": "Creator Economy" },
+    { "id": "Micro Business" },
+    { "id": "Knowledge Economy" }
+  ],
+  "links": [
+    { "source": "AI", "target": "Content" },
+    { "source": "Content", "target": "Creator Economy" },
+    { "source": "AI", "target": "Micro Business" },
+    { "source": "Knowledge Economy", "target": "Creator Economy" }
+  ]
+}
