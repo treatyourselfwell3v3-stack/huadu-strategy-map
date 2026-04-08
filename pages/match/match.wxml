@@ -1,0 +1,20 @@
+<view style="padding: 24rpx;">
+  <input
+    class="card"
+    placeholder="输入关键词匹配（如：英语、PPT）"
+    value="{{keyword}}"
+    bindinput="onInput"
+  />
+
+  <view style="color:#5c6b7a;margin:8rpx 0 16rpx;">共匹配到 {{total}} 条结果</view>
+
+  <view wx:if="{{result.length === 0}}" class="card" style="text-align:center;color:#8e99a4;">
+    暂无匹配结果
+  </view>
+
+  <view wx:for="{{result}}" wx:key="id" class="card">
+    <view style="font-weight:700;">{{item.offer}} ↔ {{item.need}}</view>
+    <view style="margin-top:12rpx;color:#5c6b7a;">{{item.location || '未填写'}} · {{item.time || '可协商'}}</view>
+    <button class="btn-primary" size="mini" style="margin-top:16rpx;">发起交流</button>
+  </view>
+</view>

@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #f7faff, #eef4ff);
+  color: #1f2937;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.panel {
+  width: min(1120px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(31, 41, 55, 0.08);
+  padding: 20px;
+}
+
+.panel.narrow {
+  width: min(760px, 100%);
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.subtitle {
+  margin: 0 0 18px;
+  color: #6b7280;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.btn-link,
+.btn-primary,
+.text-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-link,
+.btn-primary {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-link:hover,
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.text-link {
+  color: #2563eb;
+  margin-top: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f9fafb;
+}
+
+.user-card h3 {
+  margin: 0;
+}
+
+.muted {
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.skill-tag {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.skill-tag.have {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.skill-tag.want {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  font: inherit;
+}
+
+.graph {
+  width: 100%;
+  max-width: 1000px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.btn-secondary {
+  background: #64748b;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+}
